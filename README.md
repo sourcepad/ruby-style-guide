@@ -28,6 +28,10 @@ By the way, if you're into Rails you might want to check out the
 complementary
 [Ruby on Rails 3 & 4 Style Guide](https://github.com/bbatsov/rails-style-guide).
 
+# Introduction
+
+The purpose of this document is to prevent us from wasting time arguing about things that don't matter. If there are any portions of the codebase that don't follow these rules, feel free to fix them.
+
 # The Ruby Style Guide
 
 This Ruby style guide recommends best practices so that real-world Ruby
@@ -64,19 +68,10 @@ You can generate a PDF or an HTML copy of this guide using
 [RuboCop](https://github.com/bbatsov/rubocop) is a code analyzer,
 based on this style guide.
 
-Translations of the guide are available in the following languages:
-
-* [Chinese Simplified](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhCN.md)
-* [Chinese Traditional](https://github.com/JuanitoFatas/ruby-style-guide/blob/master/README-zhTW.md)
-* [French](https://github.com/porecreat/ruby-style-guide/blob/master/README-frFR.md)
-* [Japanese](https://github.com/fortissimo1997/ruby-style-guide/blob/japanese/README.ja.md)
-* [Spanish](https://github.com/alemohamad/ruby-style-guide/blob/master/README-esLA.md)
-* [Vietnamese](https://github.com/scrum2b/ruby-style-guide/blob/master/README-viVN.md)
-* [Portuguese](https://github.com/rubensmabueno/ruby-style-guide/blob/master/README-PT-BR.md)
-
 ## Table of Contents
 
 * [Source Code Layout](#source-code-layout)
+* [Whitespace](#whitespace)
 * [Syntax](#syntax)
 * [Naming](#naming)
 * [Comments](#comments)
@@ -536,6 +531,83 @@ Translations of the guide are available in the following languages:
   # comment line
   # another comment line
   ```
+
+## Whitespace
+
+* Limit lines to 80 characters.
+* End each file with a blank newline.
+* Remove all trailing spaces using
+[https://github.com/SublimeText/TrailingSpaces](Trailing Spaces) (but don't use the annoying live-highlighting)
+
+    ```json
+    {
+      "trailing_spaces_enabled" : false,
+      "trailing_spaces_trim_on_save": true
+    }
+    ```
+
+### Newlines
+
+Newlines are our friends, but they are also a complicated matter.
+The simplest rules for consistent newlines are the following:
+
+* Never have 2 newlines in a row
+* No newlines immediately after an increase, or immediately before a decrease in indentation.
+* No newlines around class declarations (that reside in their own file)
+* No newlines between comments and their related methods
+* Separate class/module macros from methods of groups of macros using a newline (`attr_accessor`, `private` etc)
+* Add newlines to separate `if else` and similar blocks within methods
+
+This applies for specs and config files as well.
+
+If you are tempted to use more than 1 line of separation, take it as an
+indicator that the file/class you are working might be too big.
+
+```ruby
+
+# Class comment (notice empty line at the start of the file)
+
+class Bad
+
+  # Method comment
+
+  def public_method
+    if bad
+      ...
+    else
+      ...
+    end
+    fail
+  end
+
+  private
+  def private_method
+  end
+
+end
+```
+
+```ruby
+# Class comment (if you _really_ need one)
+class Good
+  attr_accessor :no_line
+
+  def public_method
+    if much_better
+      ...
+    else
+      ...
+    end
+
+    succeed
+  end
+
+  private
+
+  def private_method
+  end
+end
+```
 
 ## Syntax
 
@@ -2967,37 +3039,7 @@ and has good Emacs integration.
 [partially based](http://confluence.jetbrains.com/display/RUBYDEV/RubyMine+Inspections)
 on this guide.
 
-# Contributing
-
-Nothing written in this guide is set in stone. It's my desire to work
-together with everyone interested in Ruby coding style, so that we could
-ultimately create a resource that will be beneficial to the entire Ruby
-community.
-
-Feel free to open tickets or send pull requests with improvements. Thanks in
-advance for your help!
-
-You can also support the project (and RuboCop) with financial
-contributions via [gittip](https://www.gittip.com/bbatsov).
-
-[![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/bbatsov)
-
-## How to Contribute?
-
-It's easy, just follow the [contribution guidelines](https://github.com/bbatsov/ruby-style-guide/blob/master/CONTRIBUTING.md).
-
 # License
 
 ![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)
 This work is licensed under a [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/deed.en_US)
-
-# Spread the Word
-
-A community-driven style guide is of little use to a community that
-doesn't know about its existence. Tweet about the guide, share it with
-your friends and colleagues. Every comment, suggestion or opinion we
-get makes the guide just a little bit better. And we want to have the
-best possible guide, don't we?
-
-Cheers,<br/>
-[Bozhidar](https://twitter.com/bbatsov)
